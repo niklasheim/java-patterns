@@ -1,9 +1,13 @@
 package net.dobl;
 
 
-public abstract class WRAdapter implements ISammelumrechnen{
+public class WRAdapter implements ISammelumrechnen{
 
     public WR nextWR;
+
+    public WRAdapter(WR wr) {
+        this.nextWR = wr;
+    }
 
     public double sammelumrechnen(String variante, double[] betraege){
         double sum = 0;
@@ -12,19 +16,13 @@ public abstract class WRAdapter implements ISammelumrechnen{
             sum += d;
         }
 
-        if(this.compareVariant(variante)){
-            return calculate(sum);
-        } else {
-            return nextWR.umrechnen(variante, sum);
-        }
+        return nextWR.umrechnen(variante, sum);
+        
 
     }
     
     public void setNextWR(WR nextWR){
         this.nextWR = nextWR;
     }
-
-    public abstract boolean compareVariant(String variant);
-    public abstract double calculate(double betrag); 
 
 }
